@@ -242,7 +242,7 @@ Sigmoid 函数具有以下特点：
 
 为了解决信息增益的问题，引入一个信息增益率：
 
-$Gain\_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}$
+$$Gain\_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}$$
 
 其中：
 
