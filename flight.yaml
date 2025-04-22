@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: 航班信息查询API
+  version: 1.0.0
+  description: 用于查询航班动态的API
+servers:
+  - url: https://api.example.com
+paths:
+  /flights:
+    get:
+      summary: 查询航班信息
+      description: 根据出发地、目的地和日期查询航班信息
+      parameters:
+        - in: query
+          name: departure_airport
+          schema:
+            type: string
+          required: true
+          description: 出发机场三字代码 (如: PEK)
+        - in: query
+          name: arrival_airport
+          schema:
+            type: string
+          required: true
+          description: 到达机场三字代码 (如: SHA)
+        - in: query
+          name: date
+          schema:
+            type: string
+            format: date          required: true
+          description: 出发日期 (如: 2024-06-30)
+        - in: query
+          name: airline
+          schema:
+            type: string
+          required: false
+          description: 航空公司二字代码 (如: MU)
+      responses:
+        '200':
+          description: 查询航班信息成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  flights:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        flight_number:
+                          type: string
+                          description: 航班号
+                          example: MU5137
+                        airline:
+                          type: string
+                          description: 航空公司名
+                          example: China Eastern Airlines
+                        departure_airport:
+                          type: string
+                          description: 出发机场三字代码
+                          example: PEK
+                        departure_time:
+                          type: string
+                          format: date-time
+                          description: 计划起飞时间
+                          example: 2024-06-30T07:30:00+08:00
+                        arrival_airport:
+                          type: string
+                          description: 到达机场三字代码
+                          example: SHA
+                        arrival_time:
+                          type: string
+                          format: date-time
+                          description: 计划到达时间
+                          example: 2024-06-30T09:45:00+08:00
+                        status:
+                          type: string
+                          description: 航班状态
+                          example: Scheduled
+        '400':
+          description: 参数错误
+        '500':
+          description: 服务器内部错误
+components:
+  schemas: {}
